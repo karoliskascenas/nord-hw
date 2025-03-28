@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: bq_public_data
+    description: "BQ public data"
+    database: bigquery-public-data
+    schema: stackoverflow
+    tables:
+      - name: comments
+      - name: posts_questions
+      - name: posts_answers
+      - name: users

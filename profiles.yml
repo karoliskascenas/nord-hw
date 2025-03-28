@@ -1,0 +1,9 @@
+nord_hw:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth
+      project: homework-data2020
+      dataset: ae_kkascenas
+      threads: 1

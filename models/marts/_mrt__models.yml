@@ -1,0 +1,147 @@
+version: 2
+
+models:
+  - name: mrt_question_posts
+    description: Table contains question posts that happened between {{ var("posts_start_date") }} and {{ var("posts_end_date") }} with various user dimensions.
+    columns:
+      - name: id
+        description: '{{ doc("post_id") }}'
+        tests:
+          - unique:
+              config:
+                where: creation_time is not null
+          - not_null:
+              config:
+                where: creation_time is not null
+      - name: title
+        description: '{{ doc("title") }}'
+      - name: body
+        description: '{{ doc("body") }}'
+      - name: accepted_answer_id
+        description: '{{ doc("accepted_answer_id") }}'
+      - name: answer_count
+        description: '{{ doc("answer_count") }}'
+      - name: comment_count
+        description: '{{ doc("comment_count") }}'
+      - name: community_owned_time
+        description: '{{ doc("community_owned_time") }}'
+      - name: creation_time
+        description: '{{ doc("post_creation_time") }}'
+      - name: favorite_count
+        description: '{{ doc("favorite_count") }}'
+      - name: last_activity_time
+        description: '{{ doc("last_activity_time") }}'
+      - name: last_edit_time
+        description: '{{ doc("last_edit_time") }}'
+      - name: last_editor_user_id
+        description: '{{ doc("user_id") }}'
+      - name: owner_user_id
+        description: '{{ doc("user_id") }}'
+      - name: parent_id
+        description: '{{ doc("parent_id") }}'
+      - name: post_type_id
+        description: '{{ doc("post_type_id") }}'
+      - name: score
+        description: '{{ doc("post_score") }}'
+      - name: tags
+        description: '{{ doc("tags") }}'
+      - name: view_count
+        description: '{{ doc("view_count") }}'
+      - name: solver_user_id
+        description: '{{ doc("user_id") }}'
+
+      # last_editor dims
+      - name: last_editor_display_name
+        description: '{{ doc("display_name") }}'
+      - name: last_editor_about_me
+        description: '{{ doc("about_me") }}'
+      - name: last_editor_creation_time
+        description: '{{ doc("user_creation_time") }}'
+      - name: last_editor_last_access_time
+        description: '{{ doc("last_access_time") }}'
+      - name: last_editor_location
+        description: '{{ doc("location") }}'
+      - name: last_editor_reputation
+        description: '{{ doc("reputation") }}'
+      - name: last_editor_up_votes
+        description: '{{ doc("votes") }}'
+      - name: last_editor_down_votes
+        description: '{{ doc("votes") }}'
+      - name: last_editor_views
+        description: '{{ doc("views") }}'
+      - name: last_editor_profile_image_url
+        description: '{{ doc("profile_image_url") }}'
+      - name: last_editor_website_url
+        description: '{{ doc("website_url") }}'
+
+      # owner dims
+      - name: owner_display_name
+        description: '{{ doc("display_name") }}'
+      - name: owner_about_me
+        description: '{{ doc("about_me") }}'
+      - name: owner_creation_time
+        description: '{{ doc("user_creation_time") }}'
+      - name: owner_last_access_time
+        description: '{{ doc("last_access_time") }}'
+      - name: owner_location
+        description: '{{ doc("location") }}'
+      - name: owner_reputation
+        description: '{{ doc("reputation") }}'
+      - name: owner_up_votes
+        description: '{{ doc("votes") }}'
+      - name: owner_down_votes
+        description: '{{ doc("votes") }}'
+      - name: owner_views
+        description: '{{ doc("views") }}'
+      - name: owner_profile_image_url
+        description: '{{ doc("profile_image_url") }}'
+      - name: owner_website_url
+        description: '{{ doc("website_url") }}'
+
+      # "solver" dims
+      - name: solver_display_name
+        description: '{{ doc("display_name") }}'
+      - name: solver_about_me
+        description: '{{ doc("about_me") }}'
+      - name: solver_creation_time
+        description: '{{ doc("user_creation_time") }}'
+      - name: solver_last_access_time
+        description: '{{ doc("last_access_time") }}'
+      - name: solver_location
+        description: '{{ doc("location") }}'
+      - name: solver_reputation
+        description: '{{ doc("reputation") }}'
+      - name: solver_up_votes
+        description: '{{ doc("votes") }}'
+      - name: solver_down_votes
+        description: '{{ doc("votes") }}'
+      - name: solver_views
+        description: '{{ doc("views") }}'
+      - name: solver_profile_image_url
+        description: '{{ doc("profile_image_url") }}'
+      - name: solver_website_url
+        description: '{{ doc("website_url") }}'
+
+  - name: mrt_swedish_top_solvers
+    description: View contains a top {{ var("n_swedish_top_solvers") }} list of solvers of questions posted between {{ var('swedish_solves_start_date') }} and {{ var('swedish_solves_end_date') }}.
+    columns:
+      - name: solver
+        description: The display name of the user if available. If it's not available then it's the users' id.
+      - name: accepted_answer_count
+        description: The count of accepted answers by the user.
+
+  - name: mrt_php_questions
+    description: This view shows the number of question posts with titles containing "PHP". Additionally it has a number of these posts solved by user with id {{ var("php_user") }}.
+    columns:
+      - name: php_questions
+        description: The display name of the user if available. If it's not available then it's the users' id.
+      - name: php_questions_answered_by_user_{{ var("php_user") }}
+        description: The count of PHP questions with accepted answers by user with id {{ var("php_user") }}.
+
+  - name: mrt_most_positive_comment
+    description: This view shows the most positive comment that was was posted on question posts that were posted between {{ var('positive_comments_posts_start_date') }} and {{ var('positive_comments_posts_end_date') }}.
+    columns:
+      - name: most_positive_comment
+        description: '{{ doc("comment_text") }}'
+      - name: score
+        description: '{{ doc("comment_score") }}'

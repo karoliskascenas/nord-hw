@@ -1,0 +1,94 @@
+version: 2
+
+models:
+  - name: stg_posts_questions
+    description: "View containing stackoverflow posts that are questions"
+    columns: &post_schema
+      - name: id
+        description: '{{ doc("post_id") }}'
+      - name: title
+        description: '{{ doc("title") }}'
+      - name: body
+        description: '{{ doc("body") }}'
+      - name: accepted_answer_id
+        description: '{{ doc("accepted_answer_id") }}'
+      - name: answer_count
+        description: '{{ doc("answer_count") }}'
+      - name: comment_count
+        description: '{{ doc("comment_count") }}'
+      - name: community_owned_time
+        description: '{{ doc("community_owned_time") }}'
+      - name: creation_time
+        description: '{{ doc("post_creation_time") }}'
+      - name: favorite_count
+        description: '{{ doc("favorite_count") }}'
+      - name: last_activity_time
+        description: '{{ doc("last_activity_time") }}'
+      - name: last_edit_time
+        description: '{{ doc("last_edit_time") }}'
+      - name: last_editor_user_id
+        description: '{{ doc("user_id") }}'
+      - name: owner_user_id
+        description: '{{ doc("user_id") }}'
+      - name: parent_id
+        description: '{{ doc("parent_id") }}'
+      - name: post_type_id
+        description: '{{ doc("post_type_id") }}'
+      - name: score
+        description: '{{ doc("post_score") }}'
+      - name: tags
+        description: '{{ doc("tags") }}'
+      - name: view_count
+        description: '{{ doc("view_count") }}'
+  - name: stg_posts_answers
+    description: "View containing stackoverflow posts that are questions"
+    columns: *post_schema
+  - name: stg_users
+    description: "View containing stackoverflow user info"
+    columns:
+      - name: id
+        description: '{{ doc("user_id") }}'
+      - name: display_name
+        description: '{{ doc("display_name") }}'
+      - name: about_me
+        description: '{{ doc("about_me") }}'
+      - name: creation_time
+        description: '{{ doc("user_creation_time") }}'
+      - name: last_access_time
+        description: '{{ doc("last_access_time") }}'
+      - name: location
+        description: '{{ doc("location") }}'
+      - name: reputation
+        description: '{{ doc("reputation") }}'
+      - name: up_votes
+        description: '{{ doc("votes") }}'
+      - name: down_votes
+        description: '{{ doc("votes") }}'
+      - name: views
+        description: '{{ doc("views") }}'
+      - name: profile_image_url
+        description: '{{ doc("profile_image_url") }}'
+      - name: website_url
+        description: '{{ doc("website_url") }}'
+  - name: stg_question_comments
+    description: "Table containing stackoverflow comments that were posted on question posts"
+    columns:
+      - name: id
+        description: '{{ doc("comment_id") }}'
+        tests:
+          - unique:
+              config:
+                where: creation_time is not null
+          - not_null:
+              config:
+                where: creation_time is not null
+      - name: text
+        description: '{{ doc("comment_text") }}'
+      - name: creation_time
+        description: '{{ doc("comment_creation_time") }}'
+      - name: post_id
+        description: '{{ doc("post_id") }}'
+      - name: user_display_name
+        description: '{{ doc("display_name") }}'
+      - name: score
+        description: '{{ doc("comment_score") }}'

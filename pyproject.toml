@@ -1,0 +1,10 @@
+[project]
+name = "nord-hw"
+version = "0.1.0"
+description = "Nord security homework project"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "dbt-bigquery>=1.9.1",
+    "dbt-core>=1.9.3",
+]

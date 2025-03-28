@@ -1,0 +1,32 @@
+name: 'nord_hw'
+version: '1.0.0'
+
+profile: 'nord_hw'
+
+model-paths: ["models"]
+docs-paths: ["docs"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+  - "logs"
+
+models:
+  nord_hw:
+    +persist_docs:
+      relation: true
+      columns: true
+    staging:
+      +materialized: view
+    marts:
+      +materialized: incremental
+
+vars:
+  posts_start_date: "2010-01-01"
+  posts_end_date: "2023-12-31"
+  swedish_solves_start_date: "2012-02-01"
+  swedish_solves_end_date: "2012-02-29"
+  n_swedish_top_solvers: 10
+  php_user: 560648
+  positive_comments_posts_start_date: "2013-10-01"
+  positive_comments_posts_end_date: "2013-12-01"
